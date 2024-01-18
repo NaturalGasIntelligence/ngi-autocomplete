@@ -30,7 +30,7 @@ def _is_single_value(db_field):
 
 
 class AutocompletePanel(FieldPanel):
-    def __init__(self, field_name, target_model=None, **kwargs):
+    def __init__(self, field_name, target_model=None, filters=None, **kwargs):
         super().__init__(field_name, **kwargs)
         self._target_model = target_model
 

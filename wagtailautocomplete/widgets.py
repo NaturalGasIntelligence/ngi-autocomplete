@@ -11,18 +11,21 @@ from .views import render_page
 class Autocomplete(WidgetWithScript):
     template_name = 'wagtailautocomplete/autocomplete.html'
 
-    def __init__(self, target_model, can_create=False, is_single=True, attrs=None):
+    def __init__(self, target_model, can_create=False, is_single=True, attrs=None, filters=""):
         super().__init__(attrs)
-
         self.target_model = target_model
         self.can_create = can_create
         self.is_single = is_single
+        self.filters = ""
+        if filters:
+            self.filters = json.dumps(filters)
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         context['widget']['target_model'] = self.target_model._meta.label
         context['widget']['can_create'] = self.can_create
         context['widget']['is_single'] = self.is_single
+        context['widget']['filters'] = self.filters
         return context
 
     def format_value(self, value):

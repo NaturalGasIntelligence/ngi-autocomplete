@@ -1,10 +1,25 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
+import {
+  DndContext, 
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+
 import { nc } from ".";
 import { getSuggestions, getObjects, createObject } from "../../utils/client";
 import Single from "./Single";
-import Multi from "./Multi";
+import MultiFunction from "./MultiFunction";
 
 import "./AutocompleteInput.scss";
 
@@ -15,6 +30,7 @@ class AutocompleteInput extends PureComponent {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+    this.handleDragEnd = this.handleDragEnd.bind(this);
 
     this.state = {
       value: props.value,
@@ -73,6 +89,7 @@ class AutocompleteInput extends PureComponent {
       apiBase: this.props.apiBase,
       query: value,
       type: this.props.type,
+      filters: this.props.filters,
       exclude: this.getExclusions()
     }).then(items => {
       this.setState({
@@ -101,6 +118,7 @@ class AutocompleteInput extends PureComponent {
     getObjects({
       apiBase: this.props.apiBase,
       pks,
+      filters: this.props.filters,
       type: this.props.type
     }).then(items => {
       let newValue = null;
@@ -130,6 +148,27 @@ class AutocompleteInput extends PureComponent {
 
     if (typeof this.props.onChange === "function") {
       this.props.onChange({ target: { value, _autocomplete: true } });
+    }
+  }
+
+  handleDragEnd(event) {
+    const { value } = this.state;
+    const {active, over} = event;
+    if (active.id !== over.id) {
+      let newValue = structuredClone(value)
+      let oldIndex = -1;
+      let newIndex = -1;
+
+      for (let i = 0; i < newValue.length; i++) {
+        if (newValue[i].pk == active.id)
+          oldIndex = i
+        if (newValue[i].pk == over.id)
+          newIndex = i
+      }
+      if (oldIndex !== -1 && newIndex !== -1) {
+        newValue = arrayMove(newValue, oldIndex, newIndex);
+        this.setState({ value: newValue });
+      }
     }
   }
 
@@ -193,16 +232,17 @@ class AutocompleteInput extends PureComponent {
         )}
 
         {!isSingle && (
-          <Multi
+          <MultiFunction
             input={input}
             suggestions={suggestions}
-            selections={this.value || Multi.defaultProps.selections}
+            selections={this.value || MultiFunction.defaultProps.selections}
             labelId={labelId}
             canCreate={canCreate}
             onCreate={this.handleCreate}
             onChange={this.handleChange}
             onClick={this.handleClick}
-          />
+            handleDragEnd={this.handleDragEnd}
+              />
         )}
         {error && (
           <p className={nc("error-message")}>Error: {error}</p>

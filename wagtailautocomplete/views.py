@@ -1,3 +1,6 @@
+import json
+import ast
+
 from http import HTTPStatus
 from urllib.parse import unquote
 
@@ -24,6 +27,7 @@ def render_page(page):
 @require_GET
 def objects(request):
     pks_param = request.GET.get('pks')
+    filters = request.POST.get('filters', None)
     if not pks_param:
         return HttpResponseBadRequest()
     target_model = request.GET.get('type', 'wagtailcore.Page')
@@ -41,6 +45,10 @@ def objects(request):
     except Exception:
         return HttpResponseBadRequest()
 
+    if filters:
+        filters = ast.literal_eval(filters)
+        queryset = queryset.filter(**filters)
+
     if getattr(queryset, 'live', None):
         # Non-Page models like Snippets won't have a live/published status
         # and thus should not be filtered with a call to `live`.
@@ -56,6 +64,7 @@ def objects(request):
 def search(request):
     search_query = request.POST.get('query', '')
     target_model = request.POST.get('type', 'wagtailcore.Page')
+    filters = request.POST.get('filters', None)
     try:
         model = apps.get_model(target_model)
     except Exception:
@@ -72,6 +81,10 @@ def search(request):
     else:
         queryset = filter_queryset(search_query, model)
 
+    if filters:
+        filters = ast.literal_eval(filters)
+        queryset = queryset.filter(**filters)
+    
     if getattr(queryset, 'live', None):
         # Non-Page models like Snippets won't have a live/published status
         # and thus should not be filtered with a call to `live`.
@@ -81,7 +94,7 @@ def search(request):
     if exclude:
         exclusions = [unquote(item) for item in exclude.split(',') if item]
         queryset = queryset.exclude(pk__in=exclusions)
-
+    
     results = map(render_page, queryset[:limit])
     return JsonResponse(dict(items=list(results)))
 
