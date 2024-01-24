@@ -11,7 +11,7 @@ from .views import render_page
 
 
 class Autocomplete(WidgetWithScript):
-    template_name = 'wagtailautocomplete/autocomplete.html'
+    template_name = 'ngiautocomplete/autocomplete.html'
 
     def __init__(self, target_model, can_create=False, is_single=True, attrs=None, filters="", sorted_data=None):
         super().__init__(attrs)
@@ -70,7 +70,7 @@ class Autocomplete(WidgetWithScript):
     def media(self):
         return forms.Media(
             css={
-                'all': [versioned_static('wagtailautocomplete/dist.css')],
+                'all': [versioned_static('ngiautocomplete/dist.css')],
             },
-            js=[versioned_static('wagtailautocomplete/dist.js')],
+            js=[versioned_static('ngiautocomplete/dist.js')],
         )

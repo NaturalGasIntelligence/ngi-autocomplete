@@ -1,6 +1,6 @@
 from django.urls import re_path
 
-from wagtailautocomplete.views import objects, search
+from ngiautocomplete.views import objects, search
 
 
 urlpatterns = [

@@ -7,7 +7,7 @@ var path = require('path');
 var TARGET = process.env.npm_lifecycle_event;
 process.env.BABEL_ENV = TARGET;
 
-var target = __dirname + '/wagtailautocomplete/static/wagtailautocomplete/';
+var target = __dirname + '/ngiautocomplete/static/ngiautocomplete/';
 
 var STATIC_URL = process.env.STATIC_URL || '/static/';
 var sassData = '$static-url: "' + STATIC_URL + '";';
