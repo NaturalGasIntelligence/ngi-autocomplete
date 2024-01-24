@@ -12,17 +12,21 @@ export default function SortableItem(props) {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({id: props.id});
-  
+  } = useSortable({
+      id: props.id,
+      transition: {
+        scaleX: 50, scaleY: 50
+      
+      },
+  });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    marginBottom: '10px;'
   };
   
   return (
-    <span ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       {props.children}
-    </span>
+    </div>
   );
 }

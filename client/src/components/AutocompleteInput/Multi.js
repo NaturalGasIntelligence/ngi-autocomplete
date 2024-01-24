@@ -56,6 +56,7 @@ class Multi extends PureComponent {
 
         <span className={nc("layout__item", "layout__item--padded")}>
           {selections.length === 0 && <span>Nothing selected.</span>}
+          
           {selections.map(selection => (
             <SortableItem key={selection.pk} id={selection.pk}>
               <div className={nc("selection")}>

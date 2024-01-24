@@ -19,7 +19,7 @@ import {
 import { nc } from ".";
 import { getSuggestions, getObjects, createObject } from "../../utils/client";
 import Single from "./Single";
-import MultiFunction from "./MultiFunction";
+import MultiFunction, { defaultProps } from "./MultiFunction";
 
 import "./AutocompleteInput.scss";
 
@@ -212,10 +212,19 @@ class AutocompleteInput extends PureComponent {
     const canCreate = this.props.canCreate && input.value.trim() !== "";
     const useHiddenInput = typeof onChange !== "function";
 
+    const selectionOrder = {}
+    if (this.value)
+      for (let i = 0; i < this.value.length; i++) {
+        selectionOrder[this.value[i].pk] = i
+      }
+    
     return (
       <span className={nc()}>
         {useHiddenInput && (
-          <input type="hidden" value={JSON.stringify(this.value)} name={name} />
+          <span>
+            <input type="hidden" value={JSON.stringify(selectionOrder)} name={`${name}_ordered`} />
+            <input type="hidden" value={JSON.stringify(this.value)} name={name} />
+          </span>
         )}
 
         {isSingle && (
@@ -235,7 +244,7 @@ class AutocompleteInput extends PureComponent {
           <MultiFunction
             input={input}
             suggestions={suggestions}
-            selections={this.value || MultiFunction.defaultProps.selections}
+            selections={this.value || defaultProps.selections}
             labelId={labelId}
             canCreate={canCreate}
             onCreate={this.handleCreate}

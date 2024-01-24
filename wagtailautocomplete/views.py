@@ -28,6 +28,7 @@ def render_page(page):
 def objects(request):
     pks_param = request.GET.get('pks')
     filters = request.POST.get('filters', None)
+    
     if not pks_param:
         return HttpResponseBadRequest()
     target_model = request.GET.get('type', 'wagtailcore.Page')
@@ -49,6 +50,8 @@ def objects(request):
         filters = ast.literal_eval(filters)
         queryset = queryset.filter(**filters)
 
+    # queryset = queryset.order_by("stories__title")
+
     if getattr(queryset, 'live', None):
         # Non-Page models like Snippets won't have a live/published status
         # and thus should not be filtered with a call to `live`.
@@ -65,6 +68,7 @@ def search(request):
     search_query = request.POST.get('query', '')
     target_model = request.POST.get('type', 'wagtailcore.Page')
     filters = request.POST.get('filters', None)
+    
     try:
         model = apps.get_model(target_model)
     except Exception:
