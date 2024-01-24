@@ -8,8 +8,8 @@ if WAGTAIL_VERSION >= (3, 0):
 else:
     from wagtail.core import urls as wagtail_urls
 
-from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
-from wagtailautocomplete.urls.public import urlpatterns as autocomplete_public_urls
+from ngiautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
+from ngiautocomplete.urls.public import urlpatterns as autocomplete_public_urls
 
 
 urlpatterns = [

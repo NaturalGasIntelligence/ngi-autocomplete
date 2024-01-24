@@ -5,7 +5,7 @@ SECRET_KEY = 'NOTSECRET'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'wagtailautocomplete',
+        'NAME': 'ngiautocomplete',
     }
 }
 
@@ -21,8 +21,8 @@ INSTALLED_APPS = (
     'wagtail.sites',
     'wagtail.users',
     'taggit',
-    'wagtailautocomplete',
-    'wagtailautocomplete.tests.testapp',
+    'ngiautocomplete',
+    'ngiautocomplete.tests.testapp',
 )
 
 MIDDLEWARE = (
@@ -43,7 +43,7 @@ TEMPLATES = [
     },
 ]
 
-ROOT_URLCONF = 'wagtailautocomplete.tests.testapp.urls'
+ROOT_URLCONF = 'ngiautocomplete.tests.testapp.urls'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
