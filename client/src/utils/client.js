@@ -49,11 +49,12 @@ const get = (url, params) => httpRequest(`${url}?${new URLSearchParams(params).t
 const post = (url, data) => httpRequest(url, {body: data});
 
 
-export const getSuggestions = ({ apiBase, query, type, exclude }) => {
+export const getSuggestions = ({ apiBase, query, type, exclude, filters }) => {
   const data = new FormData();
   data.set('query', query);
   data.set('type', type);
   data.set('exclude', exclude);
+  data.set('filters', filters);
   const url = apiBase + 'search/';
 
   return post(url, data)
@@ -67,10 +68,11 @@ export const getSuggestions = ({ apiBase, query, type, exclude }) => {
 };
 
 
-export const getObjects = ({ apiBase, ids, type }) => {
+export const getObjects = ({ apiBase, ids, type, filters }) => {
   const params = {
     ids,
     type,
+    filters
   };
   const url = apiBase + 'objects/';
 

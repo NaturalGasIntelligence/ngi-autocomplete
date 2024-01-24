@@ -3,6 +3,7 @@ import React, { PureComponent } from "react";
 import { nc } from ".";
 import { RemoveIcon } from "./Icons";
 import Suggestions from "./Suggestions";
+import SortableItem from "./SortableItem";
 
 class Multi extends PureComponent {
   constructor(...args) {
@@ -55,20 +56,23 @@ class Multi extends PureComponent {
 
         <span className={nc("layout__item", "layout__item--padded")}>
           {selections.length === 0 && <span>Nothing selected.</span>}
+          
           {selections.map(selection => (
-            <div key={selection.pk} className={nc("selection")}>
-              <span className={nc("selection__label")}>{selection.title}</span>
+            <SortableItem key={selection.pk} id={selection.pk}>
+              <div className={nc("selection")}>
+                <span className={nc("selection__label")}>{selection.title}</span>
 
-              <button
-                type="button"
-                className={nc("selection__button")}
-                onClick={this.handleRemove.bind(this, selection)}
-              >
-                <RemoveIcon className={nc("selection__icon")} />
+                <button
+                  type="button"
+                  className={nc("selection__button")}
+                  onClick={this.handleRemove.bind(this, selection)}
+                >
+                  <RemoveIcon className={nc("selection__icon")} />
 
-                <span className={nc("sr-only")}>Remove</span>
-              </button>
-            </div>
+                  <span className={nc("sr-only")}>Remove</span>
+                </button>
+              </div>
+            </SortableItem>
           ))}
         </span>
       </span>

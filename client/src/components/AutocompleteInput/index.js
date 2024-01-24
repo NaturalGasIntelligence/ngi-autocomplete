@@ -14,7 +14,8 @@ const initAutocompleteInput = autocompleteNode => {
   const labelId = autocompleteNode.dataset.autocompleteInputId;
   const canCreate = autocompleteNode.dataset.autocompleteInputCanCreate === "";
   const isSingle = autocompleteNode.dataset.autocompleteInputIsSingle === "";
-
+  const filters = autocompleteNode.dataset.autocompleteInputFilters;
+  
   const hasValidData = name && type;
   if (!hasValidData) {
     return;
@@ -28,6 +29,7 @@ const initAutocompleteInput = autocompleteNode => {
       labelId={labelId}
       canCreate={canCreate}
       isSingle={isSingle}
+      filters={filters}
       apiBase={wagtailadminHome + "autocomplete/"}
     />,
     autocompleteNode
