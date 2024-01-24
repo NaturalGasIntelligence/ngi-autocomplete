@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# wagtail-autocomplete documentation build configuration file, created by
+# ngi-autocomplete documentation build configuration file, created by
 # sphinx-quickstart on Thu Aug 24 11:06:10 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -46,7 +46,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Wagtail Autocomplete'
+project = u'NGI Autocomplete'
 copyright = u'2019 Emily Horsman, Harris Lapiroff, and contributors'
 author = u'Emily Horsman, Harris Lapiroff, and contributors'
 
@@ -54,7 +54,7 @@ author = u'Emily Horsman, Harris Lapiroff, and contributors'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
-from wagtailautocomplete import __version__
+from ngiautocomplete import __version__
 
 # The short X.Y version.
 version = __version__
@@ -103,7 +103,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'wagtail-autocompletedoc'
+htmlhelp_basename = 'ngi-autocompletedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -130,7 +130,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'wagtail-autocomplete.tex', u'wagtail-autocomplete Documentation',
+    (master_doc, 'ngi-autocomplete.tex', u'ngi-autocomplete Documentation',
      u'Harris Lapiroff', 'manual'),
 ]
 
@@ -140,7 +140,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'wagtail-autocomplete', u'wagtail-autocomplete Documentation',
+    (master_doc, 'ngi-autocomplete', u'ngi-autocomplete Documentation',
      [author], 1)
 ]
 
@@ -151,8 +151,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'wagtail-autocomplete', u'wagtail-autocomplete Documentation',
-     author, 'wagtail-autocomplete', 'One line description of project.',
+    (master_doc, 'ngi-autocomplete', u'ngi-autocomplete Documentation',
+     author, 'ngi-autocomplete', 'One line description of project.',
      'Miscellaneous'),
 ]
 
