@@ -30,7 +30,7 @@ const initAutocompleteInput = autocompleteNode => {
       canCreate={canCreate}
       isSingle={isSingle}
       filters={filters}
-      apiBase={wagtailadminHome + "autocomplete/"}
+      apiBase={wagtailadminHome + "ngiautocomplete/"}
     />,
     autocompleteNode
   );
