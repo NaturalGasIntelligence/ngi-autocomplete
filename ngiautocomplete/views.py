@@ -27,7 +27,6 @@ def render_page(page):
 @require_GET
 def objects(request):
     pks_param = request.GET.get('pks')
-    filters = request.POST.get('filters', None)
     
     if not pks_param:
         return HttpResponseBadRequest()
@@ -45,12 +44,6 @@ def objects(request):
         queryset = model.objects.filter(pk__in=pks)
     except Exception:
         return HttpResponseBadRequest()
-
-    if filters:
-        filters = ast.literal_eval(filters)
-        queryset = queryset.filter(**filters)
-
-    # queryset = queryset.order_by("stories__title")
 
     if getattr(queryset, 'live', None):
         # Non-Page models like Snippets won't have a live/published status
@@ -80,14 +73,12 @@ def search(request):
         return HttpResponseBadRequest()
 
     if callable(getattr(model, 'autocomplete_custom_queryset_filter', None)):
-        queryset = model.autocomplete_custom_queryset_filter(search_query)
+        if filters:
+            filters = ast.literal_eval(filters)
+        queryset = model.autocomplete_custom_queryset_filter(search_query, filters=filters)
         validate_queryset(queryset, model)
     else:
         queryset = filter_queryset(search_query, model)
-
-    if filters:
-        filters = ast.literal_eval(filters)
-        queryset = queryset.filter(**filters)
     
     if getattr(queryset, 'live', None):
         # Non-Page models like Snippets won't have a live/published status
