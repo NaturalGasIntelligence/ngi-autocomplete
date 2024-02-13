@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 
 import { nc } from ".";
-import { RemoveIcon } from "./Icons";
+import { RemoveIcon, LinkIcon } from "./Icons";
 import Suggestions from "./Suggestions";
 import SortableItem from "./SortableItem";
 
@@ -61,6 +61,17 @@ class Multi extends PureComponent {
             <SortableItem key={selection.pk} id={selection.pk}>
               <div className={nc("selection")}>
                 <span className={nc("selection__label")}>{selection.title}</span>
+
+                <a
+                  type="button"
+                  className={nc("selection__button")}
+                  href={`/admin/pages/${selection.pk}/edit/`}
+                  target="_blank"
+                >
+                  <LinkIcon className={nc("selection__icon")} />
+
+                  <span className={nc("sr-only")}>Open Article</span>
+                </a>
 
                 <button
                   type="button"
