@@ -215,7 +215,7 @@ class Suggestions extends PureComponent {
         </div>
 
         <ul
-          className={classNames("suggestions", {
+          className={classNames("suggestions", "suggestions--big", {
             "suggestions--populated": isExpanded
           })}
           style={{ display }}

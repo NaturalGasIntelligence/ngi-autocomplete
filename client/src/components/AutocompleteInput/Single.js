@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { nc } from '.';
-import { RemoveIcon } from './Icons';
+import { RemoveIcon, LinkIcon } from './Icons';
 import Suggestions from './Suggestions';
 
 
@@ -21,7 +21,16 @@ class Single extends PureComponent {
       return (
         <div className={nc('selection', 'selection--single')}>
           <span className={nc('selection__label')}>{selected.title}</span>
+          <a
+            type="button"
+            className={nc("selection__button")}
+            href={`/admin/pages/${selected.pk}/edit/`}
+            target="_blank"
+          >
+            <LinkIcon className={nc("selection__icon")} />
 
+            <span className={nc("sr-only")}>Open Article</span>
+          </a>
           <button
             type="button"
             className={nc('selection__button')}
