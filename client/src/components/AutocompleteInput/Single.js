@@ -24,7 +24,7 @@ class Single extends PureComponent {
           <a
             type="button"
             className={nc("selection__button")}
-            href={`/admin/pages/${selected.pk}/edit/`}
+            href={`/ngi-editor-admin/pages/${selected.pk}/edit/`}
             target="_blank"
           >
             <LinkIcon className={nc("selection__icon")} />

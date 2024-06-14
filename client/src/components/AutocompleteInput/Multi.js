@@ -65,7 +65,7 @@ class Multi extends PureComponent {
                 <a
                   type="button"
                   className={nc("selection__button")}
-                  href={`/admin/pages/${selection.pk}/edit/`}
+                  href={`/ngi-editor-admin/pages/${selection.pk}/edit/`}
                   target="_blank"
                 >
                   <LinkIcon className={nc("selection__icon")} />
