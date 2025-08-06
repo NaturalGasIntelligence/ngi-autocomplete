@@ -1,16 +1,16 @@
 import json
 
-from django import forms
+from django.forms import widgets, Media
 from django.apps import apps
 from django.db.models import Case, When
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.utils.widgets import WidgetWithScript
+
 
 from .views import render_page
 
 
-class Autocomplete(WidgetWithScript):
+class Autocomplete(widgets.TextInput):
     template_name = 'ngiautocomplete/autocomplete.html'
 
     def __init__(self, target_model, can_create=False, is_single=True, attrs=None, filters="", sorted_data=None):
@@ -61,16 +61,14 @@ class Autocomplete(WidgetWithScript):
                 return value.get('pk', None)
         return None
 
-    def render_js_init(self, id_, name, value):
-        return "initAutoCompleteWidget({id});".format(
-            id=json.dumps(id_),
-        )
-
     @property
     def media(self):
-        return forms.Media(
+        return Media(
             css={
                 'all': [versioned_static('ngiautocomplete/dist.css')],
             },
-            js=[versioned_static('ngiautocomplete/dist.js')],
+            js=[
+                versioned_static('ngiautocomplete/dist.js'),
+                versioned_static('ngiautocomplete/controller.js'),
+            ],
         )
